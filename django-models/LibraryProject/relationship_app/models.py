@@ -23,6 +23,12 @@ class UserProfile(models.Model):
         ('Librarian', 'Librarian'),
         ('Member', 'Member'),
     ]
+class Meta:
+    permissions = [
+        ("can_add_book", "Can add book"),
+        ("can_change_book", "Can change book"),
+        ("can_delete_book", "Can delete book"),
+    ]
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
 
@@ -33,3 +39,4 @@ class UserProfile(models.Model):
 def create_user_profile(sender, instance, created, **kwargs):
     if created:
         UserProfile.objects.create(user=instance)
+
