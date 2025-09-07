@@ -60,13 +60,15 @@ def is_member(user):
 
 @user_passes_test(is_admin)
 def admin_view(request):
-"""View accessible only to users with the Admin role."""
+    """View accessible only to users with the Admin role."""
     return render(request, 'relationship_app/admin_view.html')
 
 @user_passes_test(is_librarian)
 def librarian_view(request):
+    """View accessible only to users with the Librarian role."""
     return render(request, 'relationship_app/librarian_view.html')
 
 @user_passes_test(is_member)
 def member_view(request):
+    """View accessible only to users with the Member role."""
     return render(request, 'relationship_app/member_view.html')
