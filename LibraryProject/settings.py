@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'access_control',
-    'bookshelf',
+    'LibraryProject.bookshelf',
 ]
 
 MIDDLEWARE = [
