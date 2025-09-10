@@ -16,6 +16,12 @@ from django.contrib.auth.models import User
 from django.db import models
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+#new task
+ROLE_CHOICES = [
+    ('admin', 'Admin'),
+    ('editor', 'Editor'),
+    ('viewer', 'Viewer'),
+]
 
 class UserProfile(models.Model):
     ROLE_CHOICES = [
