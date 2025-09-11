@@ -25,11 +25,25 @@ SECRET_KEY = 'django-insecure-!ia*bi7)18if-j5!oc&qni3!4r=z#j$l#q9+hb9mj7bo4y@x7v
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
+# Browser XSS Protection
+# Enables the browser's built-in XSS filtering to help prevent XSS attacks
 SECURE_BROWSER_XSS_FILTER = True
-X_FRAME_OPTIONS = 'DENY'
+
+# Content Type Sniffing Protection
+# Prevents browsers from MIME-sniffing a response away from the declared content-type
 SECURE_CONTENT_TYPE_NOSNIFF = True
-CSRF_COOKIE_SECURE = True
-SESSION_COOKIE_SECURE = True
+
+# Clickjacking Protection
+# Prevents the site from being embedded in frames to avoid clickjacking attacks
+X_FRAME_OPTIONS = 'DENY'
+
+# CSRF Cookie Security
+# Ensures CSRF cookies are only sent over HTTPS connections in production
+CSRF_COOKIE_SECURE = not DEBUG
+
+# Session Cookie Security
+# Ensures session cookies are only sent over HTTPS connections in production
+SESSION_COOKIE_SECURE = not DEBUG
 
 
 CONTENT_SECURITY_POLICY = {
