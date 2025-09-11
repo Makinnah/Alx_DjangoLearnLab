@@ -1,11 +1,7 @@
-from django.shortcuts import render
-from .forms import SearchForm
-from .models import Book
+from django.db.models import Q
 
 def search_books(request):
-    form = SearchForm(request.POST or None)
-    results = []
-    if form.is_valid():
-        query = form.cleaned_data['query']
-        results = Book.objects.filter(title__icontains=query)
-    return render(request, 'bookshelf/book_list.html', {'form': form, 'results': results})
+    query = request.GET.get('q', '')
+    books = Book.objects.filter(Q(title__icontains=query) | Q(author__icontains=query))
+    return render(request, 'bookshelf/book_list.html', {'books': books, 'query': query})
+
