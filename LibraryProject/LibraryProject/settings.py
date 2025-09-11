@@ -20,12 +20,6 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-<<<<<<< HEAD
-SECRET_KEY = 'django-insecure-ypw_9rbksif2k#-9)xklt3ne*u3)wdah%kh*5pvhbyzhkh^$ry'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-=======
 SECRET_KEY = 'django-insecure-!ia*bi7)18if-j5!oc&qni3!4r=z#j$l#q9+hb9mj7bo4y@x7v'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -59,7 +53,6 @@ CONTENT_SECURITY_POLICY = {
         'style-src': ("'self'", 'https://trusted.cdn.com'),
     }
 }
->>>>>>> advanced_features_and_security
 
 ALLOWED_HOSTS = []
 
@@ -73,13 +66,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-<<<<<<< HEAD
-    'relationship_app',
-    'bookshelf',
-=======
     'bookshelf',
     'csp',
->>>>>>> advanced_features_and_security
 ]
 
 MIDDLEWARE = [
@@ -90,11 +78,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-<<<<<<< HEAD
-=======
     'csp.middleware.CSPMiddleware',
 
->>>>>>> advanced_features_and_security
 ]
 
 ROOT_URLCONF = 'LibraryProject.urls'
@@ -168,7 +153,3 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-<<<<<<< HEAD
-AUTH_USER_MODEL = 'bookshelf.CustomUser'
-=======
->>>>>>> advanced_features_and_security
