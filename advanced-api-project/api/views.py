@@ -45,6 +45,7 @@ class BookDetailView(generics.RetrieveUpdateDestroyAPIView):
 # api/views.py
 from rest_framework import generics, filters, viewsets
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
+from django_filters import rest_framework
 from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book, Author
 from .serializers import BookSerializer, AuthorSerializer
