@@ -40,3 +40,9 @@ http://127.0.0.1:8000/api/books/1/
 # Delete a book
 curl -X DELETE -H "Authorization: Token <TOKEN>" \
 http://127.0.0.1:8000/api/books/1/
+
+### Running Tests
+To run the API test suite:
+
+```bash
+python manage.py test api
