@@ -54,3 +54,13 @@ class CommentForm(forms.ModelForm):
         if not data:
             raise forms.ValidationError("Comment cannot be empty.")
         return data
+from django import forms
+from .models import Post
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']   # allow tags in the form
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 6}),
+        }
