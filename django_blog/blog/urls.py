@@ -72,3 +72,11 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     # comment URLs etc...
 ]
+
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # ... your other urls
+    path("search/", views.search_posts, name="search_posts"),
+]
