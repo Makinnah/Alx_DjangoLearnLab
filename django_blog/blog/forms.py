@@ -62,3 +62,14 @@ class PostForm(forms.ModelForm):
         model = Post
         fields = ['title', 'content', 'tags']   # allow tags in the form
 
+from django import forms
+from .models import Post
+from taggit.forms import TagWidget   # ✅ import TagWidget
+
+class PostForm(forms.ModelForm):
+    class Meta:
+        model = Post
+        fields = ['title', 'content', 'tags']   # include tags
+        widgets = {
+            'tags': TagWidget(),   # ✅ use TagWidget for tag input
+        }
