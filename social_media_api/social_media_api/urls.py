@@ -33,3 +33,11 @@ urlpatterns = [
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+# project urls.py (e.g. social_media_api/urls.py)
+from django.urls import path, include
+
+urlpatterns = [
+    path('api/', include('posts.urls')),   # posts endpoints at /api/posts/, /api/comments/
+    # ... other includes
+]
