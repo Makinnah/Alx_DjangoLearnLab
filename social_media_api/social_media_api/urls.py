@@ -41,3 +41,6 @@ urlpatterns = [
     path('api/', include('posts.urls')),   # posts endpoints at /api/posts/, /api/comments/
     # ... other includes
 ]
+
+path('api/accounts/', include('accounts.urls')),
+path('api/posts/', include('posts.urls')),
