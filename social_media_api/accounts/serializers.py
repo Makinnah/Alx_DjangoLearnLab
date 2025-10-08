@@ -55,3 +55,15 @@ class RegisterSerializer(serializers.ModelSerializer):
         )
         return user
 
+#Task 2
+# accounts/serializers.py
+from rest_framework import serializers
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
+class UserSimpleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ("id", "username", "first_name", "last_name")
+
