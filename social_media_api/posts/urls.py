@@ -26,7 +26,8 @@ from . import views
 
 urlpatterns = [
 
-    path('posts/<int:pk>/like/', views.like_post, name='post-like'),
-    path('posts/<int:pk>/unlike/', views.unlike_post, name='post-unlike'),
+    path('posts/<int:pk>/like/', views.LikePostView.as_view(), name='post-like'),
+    path('posts/<int:pk>/unlike/', views.UnlikePostView.as_view(), name='post-unlike'),
+
 ]
 
