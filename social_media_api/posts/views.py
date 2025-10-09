@@ -65,28 +65,35 @@ class FeedView(generics.ListAPIView):
 
 #Task Three
 # posts/views.py (append)
-from rest_framework import status, permissions, generics
+# posts/views.py
 from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework import status
 from django.shortcuts import get_object_or_404
 from .models import Post, Like
-from .serializers import LikeSerializer, PostSerializer
+from notifications.models import Notification
 
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def like_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    like, created = Like.objects.get_or_create(user=request.user, post=post)
-    if not created:
-        return Response({'detail': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
-    return Response(LikeSerializer(like).data, status=status.HTTP_201_CREATED)
+    user = request.user
+    if Like.objects.filter(user=user, post=post).exists():
+        return Response({"message": "Already liked"}, status=status.HTTP_400_BAD_REQUEST)
+    Like.objects.create(user=user, post=post)
+    if post.author != user:
+        Notification.objects.create(recipient=post.author, actor=user, verb="liked your post", target=post)
+    return Response({"message": "Liked"}, status=status.HTTP_201_CREATED)
 
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def unlike_post(request, pk):
     post = get_object_or_404(Post, pk=pk)
-    deleted, _ = Like.objects.filter(user=request.user, post=post).delete()
-    if deleted:
-        return Response({'detail': 'Unliked'}, status=status.HTTP_200_OK)
-    return Response({'detail': 'Like does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+    user = request.user
+    like = Like.objects.filter(user=user, post=post).first()
+    if not like:
+        return Response({"message": "Not liked yet"}, status=status.HTTP_400_BAD_REQUEST)
+    like.delete()
+    return Response({"message": "Unliked"}, status=status.HTTP_200_OK)
 
