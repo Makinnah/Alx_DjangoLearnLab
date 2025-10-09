@@ -107,7 +107,8 @@ from notifications.models import Notification
 # --- Like a Post ---
 class LikePostView(generics.GenericAPIView):
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
+
         like, created = Like.objects.get_or_create(user=request.user, post=post)
 
         if not created:
@@ -128,7 +129,8 @@ class LikePostView(generics.GenericAPIView):
 # --- Unlike a Post ---
 class UnlikePostView(generics.GenericAPIView):
     def post(self, request, pk):
-        post = get_object_or_404(Post, pk=pk)
+        post = generics.get_object_or_404(Post, pk=pk)
+
         like = Like.objects.filter(user=request.user, post=post)
 
         if like.exists():
