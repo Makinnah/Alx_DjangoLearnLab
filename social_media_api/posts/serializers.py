@@ -50,3 +50,24 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = ['id', 'post', 'author', 'content', 'created_at', 'updated_at']
 
+
+#Task three
+from rest_framework import serializers
+from .models import Post, Like
+from django.conf import settings
+from django.contrib.contenttypes.models import ContentType
+
+class LikeSerializer(serializers.ModelSerializer):
+    user = serializers.StringRelatedField(read_only=True)
+    class Meta:
+        model = Like
+        fields = ['id', 'user', 'post', 'created_at']
+
+class PostSerializer(serializers.ModelSerializer):
+    likes_count = serializers.IntegerField(source='likes.count', read_only=True)
+
+    class Meta:
+        model = Post
+        fields = ['id', 'author', 'title', 'content', 'created_at', 'updated_at', 'likes_count']
+        read_only_fields = ['author', 'likes_count']
+

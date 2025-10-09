@@ -19,3 +19,14 @@ urlpatterns = [
     # ... other post routes
 ]
 
+
+#Task Three
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    # existing post endpoints ...
+    path('posts/<int:pk>/like/', views.like_post, name='post-like'),
+    path('posts/<int:pk>/unlike/', views.unlike_post, name='post-unlike'),
+]
+

@@ -63,3 +63,30 @@ class FeedView(generics.ListAPIView):
         following_users = user.following.all()  # assuming `following` is on CustomUser
         return Post.objects.filter(author__in=following_users).order_by('-created_at')
 
+#Task Three
+# posts/views.py (append)
+from rest_framework import status, permissions, generics
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
+from .models import Post, Like
+from .serializers import LikeSerializer, PostSerializer
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def like_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+    if not created:
+        return Response({'detail': 'Already liked'}, status=status.HTTP_400_BAD_REQUEST)
+    return Response(LikeSerializer(like).data, status=status.HTTP_201_CREATED)
+
+@api_view(['POST'])
+@permission_classes([permissions.IsAuthenticated])
+def unlike_post(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    deleted, _ = Like.objects.filter(user=request.user, post=post).delete()
+    if deleted:
+        return Response({'detail': 'Unliked'}, status=status.HTTP_200_OK)
+    return Response({'detail': 'Like does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
